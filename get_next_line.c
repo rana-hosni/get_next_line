@@ -6,14 +6,14 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/06 15:14:56 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/08 20:03:37 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 // https://github.com/Yaten/42-get_next_line/blob/master/get_next_line.c
 
-char	*read_fun(int fd, char *tmp, char *buffer)
+static char	*read_fun(int fd, char *tmp, char *buffer)
 {
 	ssize_t	byte_read;
 	// char *str;
@@ -29,28 +29,36 @@ char	*read_fun(int fd, char *tmp, char *buffer)
 	while ((byte_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
 		// size += byte_read;
-		buffer[byte_read] = '\0';
-		tmp = ft_strjoin(tmp, buffer);
-		
+		if (byte_read == -1)
+		{
+			return(NULL);
+			free(buffer);
+		}
+		if (byte_read == 0)
+			break;
+		else
+		{
+			buffer[byte_read] = '\0';
+			tmp = ft_strjoin(tmp, buffer);
+		}
 	}
-	free(buffer);
 	return(tmp);
 }
 char	*get_next_line(int fd)
 {
-	static char	tmp[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 	// ssize_t	byte_read;
 	char	*line;
-	char	*buffer;
+	char	*temp;
 
 	// byte_read = 1;
 	
 	if (fd < 0 || BUFFER_SIZE <= 0 || (read(fd, 0, 0) < 0))
 		return (NULL);
-	buffer = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (buffer == NULL)
+	temp = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (temp== NULL)
 		return (NULL);
-	line = read_fun(fd, tmp, buffer);
+	line = read_fun(fd, temp, buffer);
 	printf("this is a test :%s\n", line);
 	return(line);
 }
