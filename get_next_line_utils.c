@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:50:14 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/08 20:04:35 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:53:35 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i])
-	{
 		i++;
-	}
 	return (i);
 }
 
@@ -51,4 +49,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new[i] = '\0';
 	free((void*)s1);
 	return (new);
+}
+
+char	*ft_strchr(const char *str, int c)
+{
+	while (*str)
+	{
+		if ((char) c == *str)
+			return ((char *)str);
+		str++;
+	}
+	if ((char) c == '\0')
+		return ((char *)str);
+	return (0);
 }
