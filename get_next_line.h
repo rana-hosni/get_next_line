@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:37:00 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/10 17:36:25 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/12 12:06:23 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strchr(const char *str, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s);
 #endif

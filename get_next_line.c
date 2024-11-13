@@ -6,32 +6,64 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/10 18:24:04 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/13 16:36:49 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 // https://github.com/Yaten/42-get_next_line/blob/master/get_next_line.c
+static char	*clean_fun(char *str, char *buffer)
+{
+	size_t	i;
+	size_t	j;
+	char	*line;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+		{
+			line = ft_substr(str, 0, i);
+			j = 0;
+			printf("the clean func: %s\n", line);
+			printf("the clean func: %s\n", buffer);
+			while (*buffer)
+			{
+				if (*buffer == '\n')
+				{
+					buffer[j] = *buffer;
+					j++;
+				}
+				buffer++;
+			}
+			printf("the clean func buffer: %s\n", buffer);
+			return(line);
+		}
+		else
+			i++;
+	}
+	return(str);
+}
 
 static char	*read_fun(int fd, char *tmp, char *buffer)
 {
 	ssize_t	byte_read;
-	char *nline;
-	int	i;
-	// ssize_t	size;
+	char 	*nline;
+	// int	i;
 
-	
-	i = 0;
+	// i = 0;
 	byte_read = 1;
-	// str = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	// if (str == NULL)
-	// 	return(NULL);
 	nline = ft_strchr(buffer, '\n');
 	while (nline == NULL)
 	{
+		while (*buffer)
+		{
+			*buffer = '\0';
+			buffer++;
+		}
 		byte_read = read(fd, buffer, BUFFER_SIZE);
-		printf("this is a test :%s\n", buffer);
-		printf("byte read :%zd\n", byte_read);
+		// printf("this is a test :%s\n", buffer);
+		// printf("byte read :%zd\n", byte_read);
 		if (byte_read == -1)
 		{
 			return (NULL);
@@ -45,17 +77,17 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 			tmp = ft_strjoin(tmp, buffer);
 			printf("this is tmp :%s\n", tmp);
 			nline = ft_strchr(buffer, '\n');
+			printf("nline is :%s\n", nline);
 		}
-		
-		i++;
 	}
+	printf("buffer remaining :%s\n", buffer);
 	return(tmp);
 }
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	// ssize_t	byte_read;
-	// char	*line;
+	char	*line;
 	char	*temp;
 
 	// byte_read = 1;
@@ -68,7 +100,9 @@ char	*get_next_line(int fd)
 	
 	temp = read_fun(fd, temp, buffer);
 	printf("this is a tmp :%s\n", temp);
-	return(temp);
+	printf("the buffer :%s\n", buffer);
+	line = clean_fun(temp, buffer);
+	return(line);
 }
 
 int	main(void)
@@ -83,10 +117,10 @@ int	main(void)
 	// 	printf("%s", line);
 	// }
 	line = get_next_line(fd);
-	printf("first call :%s", line);
+	printf("first call :%s\n", line);
 	line = get_next_line(fd);
-	printf("second : %s", line);
+	printf("second : %s\n", line);
 	line = get_next_line(fd);
-	printf("third :%s", line);
+	printf("third :%s\n", line);
 	return 0;
 }
