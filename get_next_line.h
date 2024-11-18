@@ -6,17 +6,16 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:37:00 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/12 12:06:23 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:48:32 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GET_NEXT_H
-# define GET_NEXT_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#ifndef BUFFER_SIZE
+#ifndef	BUFFER_SIZE
 # define BUFFER_SIZE 4
 #endif
-
 
 #include <fcntl.h>
 #include <unistd.h>
