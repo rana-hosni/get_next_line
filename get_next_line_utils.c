@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:50:14 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/18 16:24:05 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:17:39 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	}
 	while (s1[j])
-	{
-		new[i] = s1[j];
-		i++;
-		j++;
-	}
+		new[i++] = s1[j++];
 	j = 0;
 	while (s2[j])
-	{
-		new[i] = s2[j];
-		i++;
-		j++;
-	}
+		new[i++] = s2[j++];
 	new[i] = '\0';
 	free((void *)s1);
 	return (new);
@@ -93,7 +85,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		}
 		p[i] = '\0';
 	}
-	free((void *)s);
+	free ((void *)s);
 	return (p);
 }
 
