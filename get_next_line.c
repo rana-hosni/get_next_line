@@ -6,12 +6,26 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/21 17:26:41 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/22 18:32:39 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+
+static int	null_check(char *buffer)
+{
+	int	i;
+
+	i = 0;
+	while (i < BUFFER_SIZE)
+	{
+		if (buffer[i] == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static char	*clean_buffer(char *buffer)
 {
@@ -68,7 +82,7 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 
 	byte_read = 1;
 	nline = ft_strchr(buffer, '\n');
-	while (nline == NULL)//find away to break when there's no new line
+	while (nline == NULL) //find away to break when there's no new line
 	{
 		i = 0;
 		while (i < BUFFER_SIZE)
@@ -81,6 +95,11 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 		}
 		else if (byte_read == 0)
 			return (NULL);
+		if (null_check(buffer))
+		{
+			tmp = ft_strjoin(tmp, buffer);
+			return (tmp);
+		}
 		buffer[BUFFER_SIZE] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
 		nline = ft_strchr(buffer, '\n');
@@ -115,19 +134,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	line = malloc(1 * sizeof(char));
-	fd = open("text.txt", O_RDWR);
-	while (line != NULL)
-	{
-		free(line);
-		line = get_next_line(fd);
-		printf("|%s", line);
-	}
-	free(line);
-	return (0);
-}
+// 	line = malloc(1 * sizeof(char));
+// 	fd = open("text.txt", O_RDWR);
+// 	while (line != NULL)
+// 	{
+// 		free(line);
+// 		line = get_next_line(fd);
+// 		printf("|%s", line);
+// 	}
+// 	free(line);
+// 	return (0);
+// }
