@@ -6,26 +6,26 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/27 12:02:30 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:42:37 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static int	null_check(char *buffer)
-{
-	int	i;
+// static int	null_check(char *buffer)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < BUFFER_SIZE)
-	{
-		if (buffer[i] == 0)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < BUFFER_SIZE)
+// 	{
+// 		if (buffer[i] == 0)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 static char	*clean_buffer(char *buffer)
 {
@@ -56,7 +56,7 @@ static char	*clean_fun(char *str, char *buffer)
 	char	*line;
 
 	i = 0;
-	if (!str)
+	if (!str || *str == 0)
 	{
 		free (str);
 		return (NULL);
@@ -96,14 +96,14 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 		}
 		else if (byte_read == 0)
 		{
-			free (tmp);
-			return (NULL);
-		}
-		if (null_check(buffer))
-		{
-			tmp = ft_strjoin(tmp, buffer);
+			// free (tmp);
 			return (tmp);
 		}
+		// if (null_check(buffer))
+		// {
+		// 	tmp = ft_strjoin(tmp, buffer);
+		// 	return (tmp);
+		// }
 		buffer[BUFFER_SIZE] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
 		nline = ft_strchr(buffer, '\n');
@@ -126,7 +126,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (++i <= BUFFER_SIZE)
 		temp[i] = 0;
-	i = 0;
+	// i = 0;
 	if (*buffer)
 		temp = ft_strjoin(temp, buffer);
 	temp = read_fun(fd, temp, buffer);
@@ -139,14 +139,48 @@ char	*get_next_line(int fd)
 // 	int		fd;
 // 	char	*line;
 
-// 	line = malloc(1 * sizeof(char));
+// 	// line = malloc(1 * sizeof(char));
 // 	fd = open("text.txt", O_RDWR);
-// 	while (line != NULL)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		printf("|%s", line);
-// 	}
+// 	// while (line != NULL)
+// 	// {
+// 	// 	free(line);
+// 	// 	line = get_next_line(fd);
+// 	// 	printf("|%s", line);
+// 	// }
+// 	line = get_next_line(fd);
+// 	printf("|%s", line);
 // 	free(line);
 // 	return (0);
+// }
+// #include <fcntl.h>      // For open
+// #include <stdio.h>      // For printf
+// #include <stdlib.h>     // For exit
+// #include "get_next_line.h"
+
+// int main(void)
+// {
+//     char *line;
+//     char *file;
+//    // int i = 0;
+//     //int fd = open("alternate_line_nl_with_nl", O_RDONLY);
+//     file = "text.txt";
+//     int fd = open(file, O_RDONLY);
+
+//     if (fd == -1)
+//     {
+//         perror("Error opening file"); /// return null
+//         return (1);
+//     }
+
+
+// 	printf("fd is : %s\n", file);
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("**************Line: %s", line);
+//         free(line); // Free the line after each read
+
+//     }       
+
+//     close(fd);
+//     return (0);
 // }
