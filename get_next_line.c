@@ -6,26 +6,11 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/27 14:42:37 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:03:37 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-
-// static int	null_check(char *buffer)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < BUFFER_SIZE)
-// 	{
-// 		if (buffer[i] == 0)
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
 
 static char	*clean_buffer(char *buffer)
 {
@@ -83,7 +68,7 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 
 	byte_read = 1;
 	nline = ft_strchr(buffer, '\n');
-	while (nline == NULL) //find away to break when there's no new line
+	while (nline == NULL)
 	{
 		i = 0;
 		while (i < BUFFER_SIZE)
@@ -95,15 +80,7 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 			return (NULL);
 		}
 		else if (byte_read == 0)
-		{
-			// free (tmp);
 			return (tmp);
-		}
-		// if (null_check(buffer))
-		// {
-		// 	tmp = ft_strjoin(tmp, buffer);
-		// 	return (tmp);
-		// }
 		buffer[BUFFER_SIZE] = '\0';
 		tmp = ft_strjoin(tmp, buffer);
 		nline = ft_strchr(buffer, '\n');
@@ -126,7 +103,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (++i <= BUFFER_SIZE)
 		temp[i] = 0;
-	// i = 0;
 	if (*buffer)
 		temp = ft_strjoin(temp, buffer);
 	temp = read_fun(fd, temp, buffer);
@@ -171,7 +147,6 @@ char	*get_next_line(int fd)
 //         perror("Error opening file"); /// return null
 //         return (1);
 //     }
-
 
 // 	printf("fd is : %s\n", file);
 //     while ((line = get_next_line(fd)) != NULL)

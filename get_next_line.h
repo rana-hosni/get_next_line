@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:37:00 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/21 11:27:37 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:22:55 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);
