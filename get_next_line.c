@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 12:48:13 by rana              #+#    #+#             */
-/*   Updated: 2024/11/22 18:32:39 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:02:30 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static char	*clean_fun(char *str, char *buffer)
 		if (str[i] == '\n')
 		{
 			line = ft_substr(str, 0, i + 1);
+			free (str);
 			buffer = clean_buffer(buffer);
 			return (line);
 		}
@@ -94,7 +95,10 @@ static char	*read_fun(int fd, char *tmp, char *buffer)
 			return (NULL);
 		}
 		else if (byte_read == 0)
+		{
+			free (tmp);
 			return (NULL);
+		}
 		if (null_check(buffer))
 		{
 			tmp = ft_strjoin(tmp, buffer);
@@ -124,11 +128,7 @@ char	*get_next_line(int fd)
 		temp[i] = 0;
 	i = 0;
 	if (*buffer)
-	{
-		while (temp[i])
-			temp[i++] = '\0';
 		temp = ft_strjoin(temp, buffer);
-	}
 	temp = read_fun(fd, temp, buffer);
 	line = clean_fun(temp, buffer);
 	return (line);

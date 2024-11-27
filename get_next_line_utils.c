@@ -6,7 +6,7 @@
 /*   By: relgheit <relgheit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 10:50:14 by relgheit          #+#    #+#             */
-/*   Updated: 2024/11/21 17:17:39 by relgheit         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:25:48 by relgheit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		}
 		p[i] = '\0';
 	}
-	free ((void *)s);
 	return (p);
 }
 
@@ -109,5 +108,6 @@ char	*ft_strdup(const char *s)
 		}
 		p[i] = '\0';
 	}
+	free ((void *)s);
 	return (p);
 }
